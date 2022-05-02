@@ -32,11 +32,11 @@ module.exports = {
           { loader: "css-loader", options: { modules: true } },
         ],
       },
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: ["babel-loader"],
-      },
+      // {
+      //   test: /\.(js|jsx)$/,
+      //   exclude: /node_modules/,
+      //   use: ["babel-loader"],
+      // },
       {
         test: /\.svg$/,
         use: [
