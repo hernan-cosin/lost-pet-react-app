@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Stick+No+Bills&display=swap");
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+:root {
+  --principal: linear-gradient(170deg, white, #5e7284);
+  --principal-transparent: linear-gradient(170deg,hsla(0,0%,100%,.842),#5e7284cb);
+  --principal-inverted: linear-gradient(305deg, #5e7284, #fff);
+  --button: linear-gradient(
+    87deg,
+    rgba(216, 190, 113, 1) 0%,
+    rgba(231, 217, 178, 1) 100%
+  );
+  --black: #000;
+  --dark: #363636;
+  --white: #fff;
+  --grey: rgb(129, 129, 129);
+  --grey-button: #cdcdcd;
+  --link: #4730ff;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --gradient: linear-gradient( 90deg, #52677b 25.8%, #d0bf82 54.11%, #ffffff 150.33% );
+  --found-tag: #34ff1a;
+  --max-width: 1024px;
+  --nav-menu: #d2d2d2; 
+}

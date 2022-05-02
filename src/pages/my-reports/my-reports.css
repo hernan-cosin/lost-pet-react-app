@@ -1,0 +1,16 @@
+.my-reports-container {
+    background: var(--principal);
+    min-height: 100vh;
+    height: auto;
+    padding: 40px 0 20px 0;
+}
+
+.content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.title {
+    max-width: 350px;
+    margin: 0 auto 50px auto;
+}

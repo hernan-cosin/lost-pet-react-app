@@ -1,0 +1,23 @@
+.login-container {
+    height: calc(100vh - 75px);
+    background: var(--principal);
+    padding: 40px 10px 0 10px
+}
+
+.password-form {
+    display: block;
+}
+
+.error-message {
+    max-width: 350px;
+    width: 100%;
+    margin: 10px auto;
+    text-align: center;
+    font-size: 18px;
+    color: red;
+}
+
+.button {
+    display: block;
+    margin: 20px auto 0 auto;
+}

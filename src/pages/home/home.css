@@ -1,0 +1,25 @@
+.home-container {
+    height: calc(100vh - 75px);
+    background: var(--principal);
+    padding: 40px 0 0 0;
+}
+
+.content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.title-container {
+    max-width: 350px;
+    margin: 0 auto 50px auto;
+}
+
+.subtitle-container {
+    max-width: 350px;
+    margin: 0 auto 20px auto;
+}
+
+.button {
+    margin:  auto;
+    display: block;
+}

@@ -1,0 +1,10 @@
+.report-pet-container {
+    height: calc(100vh - 75px);
+    background: var(--principal);
+    padding: 40px 0 0 0;
+}
+
+.content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+}

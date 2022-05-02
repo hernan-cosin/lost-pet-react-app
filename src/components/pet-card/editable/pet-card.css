@@ -1,0 +1,92 @@
+.petcard-container {
+    max-width: 335px;
+    width: 100%;
+    height: auto;
+    padding: 0 0 5px 0;
+    border-radius: 4px;
+    margin: 0 auto 35px auto;
+    filter: drop-shadow(2px 4px 6px var(--dark));
+    background: var(--principal-inverted)
+}
+
+.found-tag {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--found-tag);
+    border-radius: 0 4px 0 4px;
+    padding: 2px;
+    font-size: 13px;
+    filter: drop-shadow(-1px 4px 3px var(--dark));
+    color: var(--dark);
+    font-family: 'Poppins', sans-serif;
+}
+
+.pet-img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    filter: drop-shadow(0px 4px 6px var(--dark));
+}
+
+.pet-name {
+    padding: 0 10px;
+}
+
+.pet-zone {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 10px;
+    box-shadow: 0px 0px 4px var(--dark);
+    border-radius: 4px;
+    background: var(--principal-inverted);
+}
+
+.pet-location {
+    display: block;
+    max-width: 200px;
+    overflow-wrap: break-word;
+}
+
+.pet-report-link {
+    text-align: right;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    color: var(--link);
+    cursor: pointer;
+    text-transform: none;
+    text-decoration: none;  
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.plusButton {
+    font-size: 30px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    color: var(--link);
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.pet-description {
+    display: block;
+    height: 0;
+    padding: 0 0 0 10px;
+    opacity: 0;
+    transform: translate(0, -15px);
+    transition: opacity .5s, transform .5s, height .5s .25s;}
+
+.pet-description.visible {
+    /* visibility: visible; */
+    opacity: 1;
+    transform: translate(0, 0);
+    height: auto;
+}
+

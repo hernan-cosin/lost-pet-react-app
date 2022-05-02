@@ -1,0 +1,14 @@
+.login-container {
+    height: calc(100vh - 75px);
+    background: var(--principal);
+    padding: 40px 10px 0 10px
+}
+
+.email-form {
+    display: block;
+}
+
+.button {
+    display: block;
+    margin: 20px auto 0 auto;
+}
