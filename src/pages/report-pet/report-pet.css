@@ -1,10 +1,28 @@
 .report-pet-container {
-    height: calc(100vh - 75px);
     background: var(--principal);
-    padding: 40px 0 0 0;
+    min-height: 100vh;
+    height: auto;
+    padding: 40px 0 20px 0;
 }
 
 .content {
     max-width: var(--max-width);
     margin: 0 auto;
+}
+
+.title {
+    max-width: 350px;
+    margin: 0 auto 50px auto;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 15px;
+}
+
+.cancel-button {
+    margin: 15px auto 0 auto;
+    display: block;
 }
