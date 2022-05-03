@@ -4,8 +4,8 @@
   "main": "index.tsx",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack --config ./webpack.config.js",
-    "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js ",
+    "dev": "cross-env NODE_ENV=development webpack webpack",
+    "build": "cross-env NODE_ENV=production webpack webpack ",
     "start": "live-server"
   },
   "include": [
@@ -15,8 +15,10 @@
   "dependencies": {
     "@types/node": "^17.0.23",
     "live-server": "^1.2.1",
+    "mapbox-gl": "^2.8.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-mapbox-gl": "^5.1.1",
     "react-router-dom": "6",
     "recoil": "^0.7.1",
     "webpack": "^5.71.0",
