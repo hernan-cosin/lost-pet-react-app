@@ -3,6 +3,8 @@
     min-height: 100vh;
     background: var(--principal);
     padding: 40px 0 30px 0;
+    z-index: -1;
+    position: relative;
 }
 
 .content {
