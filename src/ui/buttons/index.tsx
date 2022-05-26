@@ -5,7 +5,7 @@ type props = {
     children: String;
     color: "yellow" | "grey"
     className?: any
-    onClick?: ()=> void
+    onClick?: (e?)=> void
 }
 
 export function Button(p: props) {

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
-import { Navigate, useLocation, useNavigate } from "react-router-dom"
-import {Link} from "react-router-dom"
-import {Texto} from "ui/text"
+import { Navigate, useLocation, useNavigate, Link } from "react-router-dom"
+import { Subtitle } from "ui/texts/subtitle"
+import { LinkText } from "ui/texts/Link"
 import css from "./menu-button.css"
 import {email, passwordAndEmailState} from "atoms/atoms"
 import { useRecoilValue, useSetRecoilState } from "recoil"
@@ -14,7 +14,7 @@ export function MenuButton () {
     const userState = useRecoilValue(email)
     
     useEffect(()=>{
-        setUserEmail(userState);
+        setUserEmail(userState as any);
     }, [userState])
 //  ### ###
     
@@ -59,22 +59,22 @@ export function MenuButton () {
         </div>
         <ul className={`${css["menu-options-container"] + " "  + toggleClassMenu}`} id="ul">
         <div className={css["user-information"]}>
-            <Texto subtitle={true}>{userEmail}</Texto>
-            {!userEmail? "" : <Texto className={css["user-information_close-link"]} userClick={handleLogout} link={true}>Cerar sesión</Texto>}
+            <Subtitle>{userEmail}</Subtitle>
+            {!userEmail? "" : <LinkText className={css["user-information_close-link"]} userClick={handleLogout}>Cerar sesión</LinkText>}
         </div>
         <li key={"my-data"} className={css["li"]} onClick={handleClick}>
             <Link to="/me" state={{from: location}} className={css.link}>
-                <Texto subtitle={true}>Mis datos</Texto>
+                <Subtitle>Mis datos</Subtitle>
             </Link>
         </li>
         <li key={"my-reports"} className={css["li"]} onClick={handleClick}>
             <Link to="/me/reports" className={css.link}>
-                <Texto subtitle={true}>Mis mascotas reportadas</Texto>
+                <Subtitle>Mis mascotas reportadas</Subtitle>
             </Link>
         </li>
         <li key={"report"} className={css["li"]} onClick={handleClick}>
             <Link to="/me/report" className={css.link}>
-                <Texto subtitle={true}>Reportar mascota</Texto>
+                <Subtitle>Reportar mascota</Subtitle>
             </Link>
         </li>
         </ul>

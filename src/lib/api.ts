@@ -1,5 +1,12 @@
+// import { Cloudinary } from "@cloudinary/url-gen";
 // const API_BASE_URL = "https://m7-lost-pet-app.herokuapp.com";
 const API_BASE_URL = "http://localhost:3009";
+
+// const cld = new Cloudinary({
+//   cloud: {
+//     cloudName: "hcosin",
+//   },
+// });
 
 export async function getPetsNearBy(lat, lng) {
   const res = await fetch(
@@ -126,4 +133,71 @@ export async function myReports(token) {
 
     return userPets;
   }
+}
+
+export async function reportPet(petInfo, token: string) {
+  const authorization = `bearer ${token}`;
+
+  const serverResponse = await fetch(API_BASE_URL + "/pet", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: authorization,
+    },
+    body: JSON.stringify(petInfo),
+  });
+
+  return serverResponse;
+  // const url = `https://api.cloudinary.com/v1_1/hcosin/image/upload`;
+
+  // const formData = new FormData();
+  // formData.append("file", petInfo.imgUrl);
+  // formData.append("upload_preset", "omiteaq6");
+
+  // if (!petInfo) {
+  //   throw new Error("User was not provided");
+  // }
+  // try {
+  //   // CLOUDINARY
+  //   const res = await fetch(url, {
+  //     method: "POST",
+  //     body: formData,
+  //   });
+  //   const cloudinaryRes = await res.json();
+  //   console.log(cloudinaryRes);
+
+  // SEQUELIZE
+  // const [newPet, created] = await Pet.findOrCreate({
+  //   where: { name: petData.petName, userId: userId },
+  //   defaults: {
+  //     name: petData.petName,
+  //     description: petData.petDescription,
+  //     imgUrl: imgUpload.url,
+  //     status: petData.status,
+  //     userId: userId,
+  //     loc_lat: petData.loc_lat,
+  //     loc_lng: petData.loc_lng,
+  //     petZone: petData.petZone,
+  //     deleted: petData.deleted,
+  //   },
+  // });
+
+  // ALGOLIA
+  //   if (created) {
+  //     const savePet = await index.saveObject({
+  //       objectID: newPet.get("id"),
+  //       name: newPet.get("name"),
+  //       _geoloc: {
+  //         lat: newPet.get("loc_lat"),
+  //         lng: newPet.get("loc_lng"),
+  //       },
+  //     });
+
+  //     return { created };
+  //   } else {
+  //     return false;
+  //   }
+  // } catch (e) {
+  //     console.log(e);
+  // }
 }

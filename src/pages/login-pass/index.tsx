@@ -17,7 +17,7 @@ export function LoginPass() {
     const [password, setPassword] = useState("")
     
     const email = useRecoilValue(emailState)
-    const tokenHookRes = useAuthToken(email, password)
+    const tokenHookRes = useAuthToken(email as string, password)
 
     useEffect(()=>{
         if (tokenHookRes == false) {

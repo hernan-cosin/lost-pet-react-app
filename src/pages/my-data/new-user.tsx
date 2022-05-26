@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import css from "./new-user.css"
-import { Texto } from "ui/text";
+import { Message } from "ui/texts/message";
+import { Title } from "ui/texts/title";
 import {Button} from "ui/buttons"
-import {ErrorMessage} from "ui/error-messages"
 import {UserDataForm} from "components/user-data-form"
 import { useRecoilValue } from "recoil";
 import { useCreateUser } from "hooks/createUser";
@@ -17,7 +17,7 @@ export function NewUser() {
     
     const [newUserData, setNewUserData] = useState({email:"", name:"", lastName: "", password: "", password1:""}) 
    
-    const createUser = useCreateUser(newUserData)
+    const createUser = useCreateUser(newUserData) as any
     
     useEffect(()=>{
         if (createUser?.response) {
@@ -36,22 +36,22 @@ export function NewUser() {
             inputValues.push([input.name, input.value])
         }
 
-        const objInputValue = Object.fromEntries(inputValues) as typeof newUserData
+        const objInputValue = Object.fromEntries(inputValues) 
         objInputValue.email = userEmail
         
         if (objInputValue.password !== objInputValue.password1){
             return setErrorMessage(true)
         }
 
-        setNewUserData(objInputValue)
+        setNewUserData(objInputValue as typeof newUserData) 
     }
 
     return <div className={css["my-data-container"]} id="my-data-container">
         <div className={css.content}>
-            <Texto title={true} className={css.title}>Datos</Texto>
+            <Title className={css.title}>Datos</Title>
             <form className={css["form"]} onSubmit={handleSubmit}>
                 <UserDataForm newUser={true}></UserDataForm>
-                {errorMessage == true ? <ErrorMessage className={css["error-message"]}>Las contraseñas deben coincidir</ErrorMessage> : ""}
+                {errorMessage == true ? <Message className={css["error-message"]}>Las contraseñas deben coincidir</Message> : ""}
                 <Button color={"yellow"}>Siguiente</Button>
             </form>
         </div>

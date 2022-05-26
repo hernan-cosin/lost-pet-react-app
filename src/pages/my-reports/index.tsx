@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import css from "./my-reports.css"
-import { Texto } from "ui/text";
-import {Button} from "ui/buttons"
+import { Title } from "ui/texts/title";
 import {useMyReportedPet} from "hooks/reportedPet"
 import { useRecoilValue } from "recoil";
 import {reportedPetState} from "atoms/atoms"
@@ -23,7 +22,7 @@ export function MyReports() {
     
     return <div className={css["my-reports-container"]} id="my-reports-container">
         <div className={css.content}>
-            <Texto className={css.title} title={true}>Mis mascotas reportadas</Texto>
+            <Title className={css.title}>Mis mascotas reportadas</Title>
             <div className={css["result-container"]}>
             {reportedPets? myPublicPets.map((i)=><PetCardEdit key={i.id} id={i.id} name={i.name} description={i.description} petZone={i.petZone} imgUrl={i.imgUrl} deleted={i.deleted} status={i.status}></PetCardEdit>) : ""}
             </div>

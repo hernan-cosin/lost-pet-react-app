@@ -1,15 +1,17 @@
 import React, {useState, useEffect} from "react"
 import { Link } from "react-router-dom"
+import {Title} from "ui/texts/title"
+import {Body} from "ui/texts/body"
+import {Subtitle} from "ui/texts/subtitle"
 import css from "./pet-card.css"
-import {Texto} from "ui/text"
 
 type props = {
-    id: number
-    name: string
-    description: string
-    petZone: string
-    imgUrl: string
-    status: string
+    id: number,
+    name: string,
+    description: string,
+    petZone: string,
+    imgUrl: string,
+    status: string,
     deleted: boolean
 }
 
@@ -31,12 +33,12 @@ export function PetCard (p: props) {
 
         return <div className={css["petcard-container"]}>
             <img className={css["pet-img"]} src={p.imgUrl} alt="Imagen de la mascota perdida" />
-            <Texto className={css["pet-name"]} title={true}>{p.name}</Texto>
+            <Title className={css["pet-name"]}>{p.name}</Title>
             <div className={css["pet-zone"]}>
-                <Texto className={css["pet-location"]} text={true}>{p.petZone}</Texto>
+                <Body className={css["pet-location"]}>{p.petZone}</Body>
                 <Link className={css["pet-report-link"]} to={""}>Reportar información</Link>
             </div>
             <p onClick={handleDescriptionClick} className={css.plusButton}>+</p>
-            <Texto className={css["pet-description"] + " " + descriptionClass} description={true}>{p.description}</Texto>
+            <Subtitle className={css["pet-description"] + " " + descriptionClass}>{p.description}</Subtitle>
         </div>
 }

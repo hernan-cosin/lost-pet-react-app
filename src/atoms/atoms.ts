@@ -178,26 +178,38 @@ export const reportedPetState = atom({
   default: [],
 });
 
-export const itemParam = atom({
-  key: "itemParam",
+// LOST PET COORDS
+export const lostPetCoordsState = atom({
+  key: "lostPetCoordsState",
+  default: {},
+});
+
+// DROPZONE IMG URL
+export const imgUrlState = atom({
+  key: "imgUrlState",
   default: "",
 });
 
-export const itemResult = selector({
-  key: "itemResult",
-  get: async ({ get }) => {
-    const query = get(itemParam);
+// export const itemParam = atom({
+//   key: "itemParam",
+//   default: "",
+// });
 
-    if (query) {
-      const res = await fetch("https://api.mercadolibre.com/items/" + query, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-      return data;
-    } else {
-      return [];
-    }
-  },
-});
+// export const itemResult = selector({
+//   key: "itemResult",
+//   get: async ({ get }) => {
+//     const query = get(itemParam);
+
+//     if (query) {
+//       const res = await fetch("https://api.mercadolibre.com/items/" + query, {
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       });
+//       const data = await res.json();
+//       return data;
+//     } else {
+//       return [];
+//     }
+//   },
+// });

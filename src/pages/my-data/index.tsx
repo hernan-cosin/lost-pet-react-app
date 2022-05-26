@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import css from "./my-data.css"
-import { Texto } from "ui/text";
+import { Message } from "ui/texts/message";
+import { Title } from "ui/texts/title";
 import {Button} from "ui/buttons"
-import { ErrorMessage } from "ui/error-messages";
 import {UserDataForm} from "components/user-data-form"
 import { useUserInfo } from "hooks/userInfo";
 import { useRecoilValue } from "recoil";
@@ -21,7 +21,7 @@ export function MyData() {
 
     const [userInfoToUpdate, setUserInfoToUpdate] = useState({token:"", email: "", name: "", lastName: "", password: "", password1: "",})
 
-    const updateUser = useUpdateUser(userInfoToUpdate)
+    const updateUser = useUpdateUser(userInfoToUpdate) as any
 
     useEffect(()=>{
         if (updateUser?.userUpdate || updateUser?.authUpdate || updateUser?.updatedUserAndAuth) {
@@ -62,10 +62,10 @@ export function MyData() {
     
     return <div className={css["my-data-container"]} id="my-data-container">
         <div className={css.content}>
-            <Texto title={true} className={css.title}>Datos</Texto>
+            <Title className={css.title}>Datos</Title>
             <form className={css["form"]} onSubmit={handleSubmit}>
               <UserDataForm newUser={false} {... userInfo}></UserDataForm>
-              {errorMessage == true ? <ErrorMessage className={css["error-message"]}>Las contraseñas deben coincidir</ErrorMessage> : ""}
+              {errorMessage == true ? <Message className={css["error-message"]}>Las contraseñas deben coincidir</Message> : ""}
               <Button color={"yellow"}>Guardar</Button>
             </form>
         </div>
