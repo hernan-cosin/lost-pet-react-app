@@ -3,7 +3,6 @@
     min-height: 100vh;
     background: var(--principal);
     padding: 40px 0 20px 0;
-    z-index: -1;
     position: relative;
 }
 
@@ -17,6 +16,7 @@
     margin: 0 auto 50px auto;
 }
 
-.result-container {
-    
+.near-by-container.menuOpen {
+    position: relative;
+    z-index: -1;
 }

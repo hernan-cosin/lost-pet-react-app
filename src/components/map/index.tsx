@@ -3,8 +3,13 @@ import Map, { GeolocateControl, NavigationControl, Source, Layer} from 'react-ma
 import {lostPetCoordsState} from "atoms/atoms"
 import {useSetRecoilState} from "recoil"
 
-export function Mapbox() {
+type props  = {
+  latlng?: {lat: number, lng: number}
+}
+
+export function Mapbox(p:props) {
   const setLostPetCoordsState = useSetRecoilState(lostPetCoordsState)
+  const [editLatLng, setEditLatLng] = useState({lat: null, lng:null})
 
   const [petZoneCoords, setPetZoneCoords] = useState({
     type: 'FeatureCollection' as 'FeatureCollection',
@@ -12,6 +17,19 @@ export function Mapbox() {
       {type: 'Feature' as 'Feature', geometry: {type: 'Point' as 'Point',  coordinates: []}, properties: [""]}
     ],
   })
+
+  useEffect(()=>{
+    setEditLatLng({lat: p.latlng.lat, lng:p.latlng.lng})
+  }, [p.latlng])
+
+  useEffect(()=>{    
+      setPetZoneCoords({
+      type: 'FeatureCollection' as 'FeatureCollection',
+      features: [
+        {type: 'Feature' as 'Feature', geometry: {type: 'Point' as 'Point',  coordinates: [editLatLng.lng, editLatLng.lat]}, properties: [""]}
+      ],
+    })
+  }, [editLatLng])
 
   useEffect(()=>{
     setLostPetCoordsState(petZoneCoords.features[0].geometry.coordinates)

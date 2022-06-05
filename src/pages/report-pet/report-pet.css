@@ -31,3 +31,10 @@
     max-width: 350px;
     margin: 0 auto;
 }
+
+.unpublishButton {
+    max-width: 350px;
+    text-align: center;
+    margin: 20px auto 0 auto;
+    cursor: pointer;
+}

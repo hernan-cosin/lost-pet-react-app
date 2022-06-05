@@ -1,12 +1,5 @@
-// import { Cloudinary } from "@cloudinary/url-gen";
-// const API_BASE_URL = "https://m7-lost-pet-app.herokuapp.com";
-const API_BASE_URL = "http://localhost:3009";
-
-// const cld = new Cloudinary({
-//   cloud: {
-//     cloudName: "hcosin",
-//   },
-// });
+const API_BASE_URL = "https://m7-lost-pet-app.herokuapp.com";
+// const API_BASE_URL = "http://localhost:3009";
 
 export async function getPetsNearBy(lat, lng) {
   const res = await fetch(
@@ -87,8 +80,6 @@ export async function createUser(userData) {
 }
 
 export async function updateUserInfo(userData) {
-  console.log(userData);
-
   let userDataToUpdate = {} as any;
 
   if (userData.email) {
@@ -148,56 +139,85 @@ export async function reportPet(petInfo, token: string) {
   });
 
   return serverResponse;
-  // const url = `https://api.cloudinary.com/v1_1/hcosin/image/upload`;
+}
 
-  // const formData = new FormData();
-  // formData.append("file", petInfo.imgUrl);
-  // formData.append("upload_preset", "omiteaq6");
+export async function updatePetInfo(petInfo, token: string) {
+  const authorization = `beaarer ${token}`;
 
-  // if (!petInfo) {
-  //   throw new Error("User was not provided");
-  // }
-  // try {
-  //   // CLOUDINARY
-  //   const res = await fetch(url, {
-  //     method: "POST",
-  //     body: formData,
-  //   });
-  //   const cloudinaryRes = await res.json();
-  //   console.log(cloudinaryRes);
+  const updateUserInfo = await fetch(API_BASE_URL + "/pet", {
+    method: "put",
+    headers: {
+      "content-type": "application/json",
+      Authorization: authorization,
+    },
+    body: JSON.stringify(petInfo),
+  });
 
-  // SEQUELIZE
-  // const [newPet, created] = await Pet.findOrCreate({
-  //   where: { name: petData.petName, userId: userId },
-  //   defaults: {
-  //     name: petData.petName,
-  //     description: petData.petDescription,
-  //     imgUrl: imgUpload.url,
-  //     status: petData.status,
-  //     userId: userId,
-  //     loc_lat: petData.loc_lat,
-  //     loc_lng: petData.loc_lng,
-  //     petZone: petData.petZone,
-  //     deleted: petData.deleted,
-  //   },
-  // });
+  return updateUserInfo;
+}
 
-  // ALGOLIA
-  //   if (created) {
-  //     const savePet = await index.saveObject({
-  //       objectID: newPet.get("id"),
-  //       name: newPet.get("name"),
-  //       _geoloc: {
-  //         lat: newPet.get("loc_lat"),
-  //         lng: newPet.get("loc_lng"),
-  //       },
-  //     });
+export async function sendReport(reportInfo) {
+  const createReport = await fetch(API_BASE_URL + "/create-report", {
+    method: "post",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(reportInfo),
+  });
 
-  //     return { created };
-  //   } else {
-  //     return false;
-  //   }
-  // } catch (e) {
-  //     console.log(e);
-  // }
+  return createReport;
+}
+
+export async function sendEmail(information) {
+  const sendEmail = fetch(API_BASE_URL + "/send-email", {
+    method: "post",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(information),
+  });
+
+  return sendEmail;
+}
+
+export async function reportAsFound(petInfo, token: string) {
+  const authorization = `beaarer ${token}`;
+
+  const reportAsFound = await fetch(API_BASE_URL + "/pet/found", {
+    method: "put",
+    headers: {
+      "content-type": "application/json",
+      Authorization: authorization,
+    },
+    body: JSON.stringify(petInfo),
+  });
+
+  return reportAsFound;
+}
+
+export async function unpublishPet(petInfo, token) {
+  const authorization = `bearer ${token}`;
+
+  const unpublishPet = fetch(API_BASE_URL + "/pet/unpublish", {
+    method: "put",
+    headers: {
+      "content-type": "application/json",
+      Authorization: authorization,
+    },
+    body: JSON.stringify(petInfo),
+  });
+
+  return unpublishPet;
+}
+
+export async function restorePass(userEmail) {
+  const restorePass = await fetch(API_BASE_URL + "/pass", {
+    method: "put",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({ userEmail: userEmail }),
+  });
+
+  return restorePass;
 }

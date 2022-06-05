@@ -1,6 +1,7 @@
 const path = require("path");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 var liveServer = require("live-server");
+const Dotenv = require("dotenv-webpack");
 const dev = process.env.NODE_ENV == "development";
 
 if (dev) {
@@ -64,4 +65,5 @@ module.exports = {
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
   },
+  plugins: [new Dotenv()],
 };

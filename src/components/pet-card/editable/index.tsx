@@ -4,6 +4,8 @@ import edit from 'media/edit.svg';
 import {Title} from "ui/texts/title"
 import {Body} from "ui/texts/body"
 import {Subtitle} from "ui/texts/subtitle"
+import {editPetInformation} from "atoms/atoms"
+import { useSetRecoilState } from "recoil";
 import css from "./pet-card.css"
 
 type props = {
@@ -14,11 +16,14 @@ type props = {
     imgUrl: string
     status: string
     deleted: boolean
+    latlng: {lat:number, lng:number}
 }
 
 export function PetCardEdit (p: props) {
     const [descriptionToggleOn, setDescriptionToggle] = useState(false)
     const [descriptionClass, setDescriptionClass] = useState("")
+    const [plusRotation, setPlusRotation] = useState("")
+    const setEditPetInformation = useSetRecoilState(editPetInformation)
 
     useEffect(()=>{
         if (descriptionToggleOn) {
@@ -28,8 +33,20 @@ export function PetCardEdit (p: props) {
         }
     }, [descriptionToggleOn])
 
+    useEffect(()=>{
+        if (descriptionToggleOn) {
+            setPlusRotation(css.plusRotate)
+        } else {
+            setPlusRotation("")
+        }
+    }, [descriptionToggleOn])
+
     function handleDescriptionClick() {
         setDescriptionToggle(!descriptionToggleOn)
+    }
+
+    function handleEditClick() {
+        setEditPetInformation(p)
     }
 
         return <div className={css["petcard-container"]}>
@@ -38,11 +55,11 @@ export function PetCardEdit (p: props) {
             <Title className={css["pet-name"]}>{p.name}</Title>
             <div className={css["pet-zone"]}>
                 <Body className={css["pet-location"]}>{p.petZone}</Body>
-                <Link className={css["pet-report-link"]} to={""}>
+                <Link className={css["pet-report-link"]} to={"/me/report"} onClick={handleEditClick}>
                     <img src={edit} alt="edit svg logo" className={css["edit"]}/>
                 </Link>
             </div>
-            <p onClick={handleDescriptionClick} className={css.plusButton}>+</p>
+            <p onClick={handleDescriptionClick} className={css.plusButton + " " + plusRotation}>+</p>
             <Subtitle className={css["pet-description"] + " " + descriptionClass}>{p.description}</Subtitle>
         </div>
 }

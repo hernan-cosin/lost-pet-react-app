@@ -7,7 +7,7 @@ import { MyRouter } from "router/index";
 const container = document.getElementById('app');
 const root = createRoot(container);
 
-root.render((<React.StrictMode>
+root.render(<React.StrictMode>
         <RecoilRoot>
             <Suspense fallback={null}>
                 <BrowserRouter >
@@ -16,4 +16,4 @@ root.render((<React.StrictMode>
             </Suspense>
         </RecoilRoot>
     </React.StrictMode>
-))
+)

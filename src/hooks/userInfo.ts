@@ -6,7 +6,6 @@ export function useUserInfo() {
   const setTokenValue = useSetRecoilState(tokenValueState);
   const response = useRecoilValue(userInformation);
   const token = localStorage.getItem("token");
-  // console.log("response", response);
 
   useEffect(() => {
     setTokenValue(token);

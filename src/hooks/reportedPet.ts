@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { myReports } from "lib/api";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { reportedPetState } from "atoms/atoms";
 
 export async function useMyReportedPet() {

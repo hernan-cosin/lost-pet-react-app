@@ -3,8 +3,6 @@
     min-height: 100vh;
     height: auto;
     padding: 40px 0 20px 0;
-    z-index: -1;
-    position: relative;
 }
 
 .content {
@@ -15,4 +13,15 @@
 .title {
     max-width: 350px;
     margin: 0 auto 50px auto;
+}
+
+
+.my-reports-container.menuOpen {
+    position: relative;
+    z-index: -1;
+}
+
+.subtitle {
+    max-width: 350px;
+    margin: 0 auto;
 }

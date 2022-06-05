@@ -4,4 +4,6 @@
     border: dashed black;
     border-radius: 6px;
     width: 350px;
+    text-align: center;
+    cursor: pointer;
 }

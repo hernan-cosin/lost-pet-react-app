@@ -15,5 +15,5 @@ export function Button(p: props) {
         setClassName(p.className)
     }, [className])
     
-    return <button onClick={p.onClick} className={`${css["button"] + " " +  css[p.color] + " " + className}`}>{p.children}</button>
+    return <button className={`${css["button"] + " " +  css[p.color] + " " + className}`} onClick={p.onClick? p.onClick : null}>{p.children}</button>
 }

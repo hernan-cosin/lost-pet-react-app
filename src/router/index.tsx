@@ -20,9 +20,9 @@ export function MyRouter() {
           <Routes>
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />}></Route>
+                <Route path="/near-by/:lat/:lng" element={<NearBy />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/login-pass" element={<LoginPass />}></Route>
-                <Route path="/near-by/:lat/:lng" element={<NearBy />}></Route>
                 <Route path="/me" element={
                   <PrivateRoute>
                     <MyData />

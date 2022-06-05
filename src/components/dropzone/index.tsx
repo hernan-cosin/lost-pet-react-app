@@ -1,25 +1,36 @@
 import React, {useCallback, useState, useEffect} from 'react'
 import {useDropzone} from 'react-dropzone'
-import { Button } from 'ui/buttons';
 import { Body } from 'ui/texts/body';
 import {imgUrlState} from "atoms/atoms"
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 import css from "./index.css"
 
-export function MyDropzone() {
-    const [files, setFiles] = useState([]);
-    const setImgUrl = useSetRecoilState(imgUrlState)
-    const [imgBase64State, setImgBase64State] = useState("")
+type props = {
+  imgUrl?: string
+}
+
+export function MyDropzone(p: props) {
+  const [files, setFiles] = useState([]);
+  const setImgUrl = useSetRecoilState(imgUrlState)
+  const [imgBase64State, setImgBase64State] = useState("")
+  const [propImgUrl, setpropImgUrl] = useState("")
 
     useEffect(()=>{
+      if (p.imgUrl) {
+        setImgUrl(p.imgUrl)
+      }
+    }, )
+  
+    useEffect(()=>{
       setImgUrl(imgBase64State)
-      console.log("dropzone img base",imgBase64State);
-      
     }, [imgBase64State])
 
+    useEffect(()=>{
+      setpropImgUrl(p.imgUrl)      
+    }, [p.imgUrl])
 
     async function getBase64(file) {
-        return new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = () => resolve(reader.result);
@@ -29,16 +40,20 @@ export function MyDropzone() {
 
   const {getRootProps, getInputProps} = useDropzone({ maxFiles:1, accept: {
     'image/*': []
-  },  onDrop: useCallback(async acceptedFiles => {
-    setFiles(acceptedFiles.map(file => Object.assign(file, {
-      preview: URL.createObjectURL(file)
-    })));
-
+  }, onDrop: useCallback(async acceptedFiles => {
+    setFiles(acceptedFiles.map(file => {      
+      setpropImgUrl("")
+      return Object.assign(file, {
+        preview: URL.createObjectURL(file)
+      })
+    }));
+    
     const imgBase64 = await getBase64(acceptedFiles[0])
     setImgBase64State(imgBase64 as any)
   }, [])})
 
-  const thumbs = files.map(file => (
+  const thumbs = propImgUrl == ""?
+  files.map(file => (
     <div style={thumb} key={file.name}>
       <div style={thumbInner}>
         <img
@@ -49,11 +64,18 @@ export function MyDropzone() {
         />
       </div>
     </div>
-  ));
+  )) : 
+  <div style={thumb}>
+      <div style={thumbInner}>
+        <img
+          src={propImgUrl}
+          style={img}
+          // Revoke data uri after image is loaded
+          onLoad={() => { URL.revokeObjectURL(p.imgUrl) }}
+        />
+      </div>
+    </div> ;
 
-  function imgButtonHandler (e) {
-    e.preventDefault()
-  }
 
   useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
@@ -63,11 +85,10 @@ export function MyDropzone() {
   return (
     <div {...getRootProps()}>
       <input {...getInputProps()} />
-        <Body className={css["dropzone-text"]}>Arrastrá una foto o utiliza el botón</Body>       
+        <Body className={css["dropzone-text"]}>Arrastrá una foto o haz click aquí para seleccionar un archivo</Body>       
       <aside style={thumbsContainer as any}>
         {thumbs}
       </aside>
-        <Button onClick={imgButtonHandler} color='yellow'>Seleccionar foto</Button>
     </div>
   )
 }

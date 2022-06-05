@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import css from "./my-data.css"
 import { Message } from "ui/texts/message";
 import { Title } from "ui/texts/title";
 import {Button} from "ui/buttons"
@@ -8,7 +7,7 @@ import { useUserInfo } from "hooks/userInfo";
 import { useRecoilValue } from "recoil";
 import { emailState, tokenValueState } from "atoms/atoms";
 import {useUpdateUser} from "hooks/updateUser"
-
+import css from "./my-data.css"
 
 export function MyData() {
     const userInfo = useUserInfo()
@@ -21,20 +20,22 @@ export function MyData() {
 
     const [userInfoToUpdate, setUserInfoToUpdate] = useState({token:"", email: "", name: "", lastName: "", password: "", password1: "",})
 
-    const updateUser = useUpdateUser(userInfoToUpdate) as any
+    const updateUser = useUpdateUser(userInfoToUpdate) as any // custom hook
 
     useEffect(()=>{
         if (updateUser?.userUpdate || updateUser?.authUpdate || updateUser?.updatedUserAndAuth) {
+            // si se actualizó alguno de los datos del usuario
+            // setea updatedUser true 
             setupdatedUser(true)
         }
     }, [updateUser])
 
     useEffect(()=>{
         const form  = document.querySelector("form")
-        form.reset()
+        form.reset() // se resetean las contraseñas del formulario
     }, [updatedUser])
 
-    function getInputValues() {
+    function getInputValues() { // obtiene y retorna un objeto con la información fromateada para actualizar usuario
         const inputs = document.querySelectorAll("input") as any
         let inputValues = []
 
@@ -46,7 +47,7 @@ export function MyData() {
         objInputValue.email = userEmail
         objInputValue.token = token
         
-        if (objInputValue.password !== objInputValue.password1){
+        if (objInputValue.password !== objInputValue.password1){ // varifica coincidencia de contraseñas
             return setErrorMessage(true)
         }
 

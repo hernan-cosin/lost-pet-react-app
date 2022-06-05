@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
-import css from "./report-pet.css"
 import {Button} from "ui/buttons"
 import { Title } from "ui/texts/title";
 import {Message} from "ui/texts/message"
+import { BlueLink } from "ui/texts/blue-link";
 import {ReportPetForm} from "components/report-pet-form"
 import { useRecoilValue } from "recoil";
-import {imgUrlState} from "atoms/atoms"
+import { flagCreatePet, imgUrlState, editPetInformation} from "atoms/atoms"
 import {lostPetCoordsState} from "atoms/atoms"
-import {reportPet} from "lib/api"
+import {reportPet, updatePetInfo, reportAsFound, unpublishPet} from "lib/api"
 import {useNavigate} from "react-router-dom"
+import css from "./report-pet.css"
 
 export function ReportPet() {
     const navigate = useNavigate()
     const tkn = localStorage.getItem("token")
-    
-    const imgUrlValue = useRecoilValue(imgUrlState)
-    const lostPetCoordsStateValue = useRecoilValue(lostPetCoordsState)
-
     const [imgUrlValueIntState, setImgUrlValueIntState] = useState("")
     const [formErrorMessage, setFormErrorMessage] =  useState(false)
+    const petInformationStateValue = useRecoilValue(editPetInformation)
+    const petId = useRecoilValue(editPetInformation).id
+    const imgUrlValue = useRecoilValue(imgUrlState)
+    const lostPetCoordsStateValue = useRecoilValue(lostPetCoordsState)
+    const flagCreatePetVal = useRecoilValue(flagCreatePet) // flag para saber si hay que crear una mascota o actualizarla
 
     useEffect(()=>{
         // state interno de este componente para guardar la url que viene de atoms
@@ -30,31 +32,93 @@ export function ReportPet() {
         const name = e.target.querySelector('[name="name"]').value
         const description = e.target.querySelector('[name="description"]').value
         const neighborhood = e.target.querySelector('[name="neighborhood"]').value
-
         
         if (name.length == 0 || description.length == 0 || neighborhood.length == 0 || imgUrlValueIntState.length == 0 ) {
-            setFormErrorMessage(!formErrorMessage)
-        } else {
-            const pet = {
-                petName:name,
-                petDescription:description,
-                imgUrl:imgUrlValueIntState,
-                status:"lost",
-                loc_lat:lostPetCoordsStateValue[1],
-                loc_lng:lostPetCoordsStateValue[0],
-                petZone:neighborhood,
-                deleted:false,
-            }
-            
-            const res = await reportPet(pet,tkn)
-            const response  = await res.json()
-            
-            if (response.response.created == true) {
-                navigate("/me/reports")
-            } else {return}
-            
+            setFormErrorMessage(!formErrorMessage)            
+        } else {            
+            if (flagCreatePetVal) {
+                const pet = {
+                    petName:name,
+                    petDescription:description,
+                    imgUrl:imgUrlValueIntState,
+                    status:"lost",
+                    loc_lat:lostPetCoordsStateValue[1],
+                    loc_lng:lostPetCoordsStateValue[0],
+                    petZone:neighborhood,
+                    deleted:false,
+                    petId: undefined
+                }
+                
+                const res = await reportPet(pet,tkn)
+                const response  = await res.json()
+                
+                if (response.response.created == true) {
+                    navigate("/me/reports")
+                } else {
+                    return
+                }
+            } if (!flagCreatePetVal) {                
+                const petUpdate = {
+                    name:name,
+                    description:description,
+                    imgUrl:imgUrlValueIntState,
+                    status:"lost",
+                    loc_lat:lostPetCoordsStateValue[1],
+                    loc_lng:lostPetCoordsStateValue[0],
+                    petZone:neighborhood,
+                    petId: petId
+                }
+
+                const res = await updatePetInfo(petUpdate, tkn)
+                const response  = await res.json()
+                if (response.updated) {
+                    navigate("/me/reports")
+                }
+            }   
         }
+    }
+    
+    async function handleFoundClick(e) { // reportar mascota como encontrada
+        e.preventDefault()
+            const reportAsFoundPetInformation = {
+                deleted: false,
+                description: petInformationStateValue.description, 
+                id: petInformationStateValue.id,
+                imgUrl:petInformationStateValue.imgUrl,
+                loc_lat: petInformationStateValue.latlng.lat,
+                loc_lng: petInformationStateValue.latlng.lng,
+                name: petInformationStateValue.name,
+                petZone:petInformationStateValue.petZone,
+                status: "found"
+            }
         
+        const res = await reportAsFound(reportAsFoundPetInformation, tkn)
+        const reportAsFoundRes = await res.json()
+
+        if (reportAsFoundRes) {
+            navigate("/me/reports")
+        }
+    }
+
+    async function handleUnpublishClick() { // despublicar/eliminar mascota
+        const reportAsFoundPetInformation = {
+            deleted: true,
+            description: petInformationStateValue.description, 
+            id: petInformationStateValue.id,
+            imgUrl:petInformationStateValue.imgUrl,
+            loc_lat: petInformationStateValue.latlng.lat,
+            loc_lng: petInformationStateValue.latlng.lng,
+            name: petInformationStateValue.name,
+            petZone:petInformationStateValue.petZone,
+            status: "lost"
+        }
+
+        const res = await unpublishPet(reportAsFoundPetInformation, tkn)
+        const unpublishPetRes = await res.json()
+
+        if (unpublishPetRes.unpublished) {
+            navigate("/me/reports")
+        }
     }
     
     return <div className={css["report-pet-container"]} id="report-pet-container">
@@ -63,10 +127,11 @@ export function ReportPet() {
             <div className={css["form-container"]}>
                 <form onSubmit={handleSubmit} className={css["form"]}>
                     <ReportPetForm></ReportPetForm>
-                    <Button className={css["report-button"]} color="yellow">Reportar como perdido</Button>
+                    {flagCreatePetVal? <Button className={css["report-button"]} color="yellow">Reportar como perdido</Button> : <Button className={css["report-button"]} color="yellow">Reportar como perdido</Button>}
                 </form>
                     {formErrorMessage? <Message className={css["error-message"]}>Falta completar alguno de los datos obligatorios</Message> : ""}
-                    <Button className={css["cancel-button"]} color="grey">Cancelar</Button>
+                    {petInformationStateValue.status == "found"? null : <Button onClick={handleFoundClick} className={css["cancel-button"]} color="grey">Reportar como encontrado</Button>}
+                    {petId?<BlueLink userClick={handleUnpublishClick} className={css.unpublishButton}>Despublicar</BlueLink> : null}
             </div>
         </div>
     </div>

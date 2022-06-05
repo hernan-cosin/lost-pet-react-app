@@ -4,6 +4,7 @@ import css from "./title.css"
 type props = {
     children: string
     className?: string
+    onClick?: ()=>void
 }
 
 export function Title(p:props) {
@@ -15,5 +16,5 @@ export function Title(p:props) {
         className = ""
     }
 
-    return <p className={css["title"] + " " + className}>{p.children}</p>
+    return <p className={css["title"] + " " + className} onClick={p.onClick? p.onClick : null}>{p.children}</p>
 }

@@ -1,12 +1,12 @@
 import React from "react";
-import css from "./user-data-form.css"
 import {SearchInput} from "ui/text-field"
-import { Button } from "ui/buttons"; 
+import css from "./user-data-form.css"
 
 type props = {
     name?: string
     lastName?: string
-    newUser: boolean
+    newUser: boolean // si el usuario es nuevo setea required true, debe poner las contraseñas
+                     // si no es nuevo usuario setea required false, las contraseñas no son obligatorias
 }
 
 export function UserDataForm (p:props) {    

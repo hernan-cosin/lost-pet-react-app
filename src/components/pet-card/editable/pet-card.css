@@ -73,6 +73,12 @@
     color: var(--link);
     cursor: pointer;
     padding: 0 10px;
+    transition: transform .5s ease;
+    width: fit-content;
+}
+
+.plusButton.plusRotate {
+    transform: rotate(45deg);
 }
 
 .pet-description {
@@ -81,7 +87,9 @@
     padding: 0 0 0 10px;
     opacity: 0;
     transform: translate(0, -15px);
-    transition: opacity .5s, transform .5s, height .5s .25s;}
+    transition: opacity .5s, transform .5s, height .5s .25s;
+    margin: 0;
+}
 
 .pet-description.visible {
     /* visibility: visible; */

@@ -56,6 +56,12 @@
     color: var(--link);
     cursor: pointer;
     padding: 0 10px;
+    transition: transform .5s ease;
+    width: fit-content;
+}
+
+.plusButton.plusRotate {
+    transform: rotate(45deg);
 }
 
 .pet-description {

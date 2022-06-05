@@ -8,6 +8,18 @@ import {
   updateUserInfo,
 } from "lib/api";
 
+// MENU
+export const openMenu = atom({
+  key: "openMenu", // unique ID (with respect to other atoms/selectors)
+  default: false, // default value (aka initial value)
+});
+
+// REPORT SEEN PET INFORMATION
+export const openReportForm = atom({
+  key: "openReportForm", // unique ID (with respect to other atoms/selectors)
+  default: { petId: 0, open: false }, // default value (aka initial value)
+});
+
 // QUERY PARAMS FOR PETS NEAR BY
 export const paramState = atom({
   key: "paramState", // unique ID (with respect to other atoms/selectors)
@@ -124,9 +136,6 @@ export const userInformationCreateUserResponse = selector({
   key: "userInformationCreateUserResponse",
   get: async ({ get }) => {
     const userInformation = get(userInformationCreateUserState);
-    // console.log("ATOMS userInformation", userInformation);
-    console.log("tokenValue", tokenValueState);
-
     if (
       userInformation.email &&
       userInformation.name &&
@@ -137,7 +146,6 @@ export const userInformationCreateUserResponse = selector({
       const res = await createUser(userInformation);
 
       const userInfoRes = await res.json();
-      console.log("userInfoRes atoms", userInfoRes);
       return userInfoRes;
     }
   },
@@ -160,13 +168,11 @@ export const userInformationUpdateUserResponse = selector({
   key: "userInformationUpdateUserResponse",
   get: async ({ get }) => {
     const userInformationUpdate = get(userInformationUpdateUserState);
-    console.log("atom userInfoUpdate", userInformationUpdate);
 
     if (userInformationUpdate.email) {
       const res = await updateUserInfo(userInformationUpdate);
       const updateUserResponse = await res.json();
 
-      console.log("atoms update", updateUserResponse);
       return updateUserResponse;
     }
   },
@@ -188,6 +194,27 @@ export const lostPetCoordsState = atom({
 export const imgUrlState = atom({
   key: "imgUrlState",
   default: "",
+});
+
+// EDIT PET INFORMATION
+export const editPetInformation = atom({
+  key: "editPetInformation",
+  default: {
+    id: 0,
+    name: "",
+    description: "",
+    petZone: "",
+    imgUrl: "",
+    status: "",
+    deleted: false,
+    latlng: { lat: 0, lng: 0 },
+  },
+});
+
+// FLAG CREATE PET OR UPDATE PET
+export const flagCreatePet = atom({
+  key: "flagCreatePet",
+  default: false,
 });
 
 // export const itemParam = atom({

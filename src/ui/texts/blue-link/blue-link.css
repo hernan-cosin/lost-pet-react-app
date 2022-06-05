@@ -1,7 +1,7 @@
 .link {
-        font-size: 24px;
-        font-weight: 600;
+        font-size: 16px;
+        font-weight: 400;
         text-transform: none;
         font-family: 'Poppins', sans-serif;
-        color: var(--dark);
+        color: var(--link);
 }

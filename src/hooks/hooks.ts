@@ -27,7 +27,7 @@ export function useGetPetsNearBy() {
       return publicResults.push(pet);
     }
   });
-  console.log(publicResults);
 
   return publicResults;
+  return results;
 }
