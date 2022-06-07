@@ -16,6 +16,11 @@
     margin: 0 auto 50px auto;
 }
 
+.noPetsText {
+    max-width: 350px;
+    margin: 0 auto;
+}
+
 .near-by-container.menuOpen {
     position: relative;
     z-index: -1;
