@@ -23,26 +23,16 @@ export function MyData() {
     const updateUser = useUpdateUser(userInfoToUpdate) as any // custom hook
 
     useEffect(()=>{
-        console.log(userInfoToUpdate);
-        
-    }, [userInfoToUpdate])
-
-    useEffect(()=>{
-        console.log("UPDATEUSER",updateUser);
         
         if (updateUser?.userUpdate || updateUser?.authUpdate || updateUser?.updatedUserAndAuth) {            
             // si se actualizó alguno de los datos del usuario
             // setea updatedUser true 
-            console.log(updateUser.userUpdate)
-            console.log(updateUser.authUpdate)
-            console.log(updateUser.updatedUserAndAuth)
             setupdatedUser(true)
         }
     }, [updateUser])
 
     useEffect(()=>{
         const form  = document.querySelector("form")
-        console.log("FORM RESET", updatedUser);
         if (updatedUser) {
             form.reset() // se resetean las contraseñas del formulario
         }
@@ -70,7 +60,6 @@ export function MyData() {
     function handleSubmit(e) {
         e.preventDefault()
         const inputValues = getInputValues()
-        // console.log(inputValues);
         
         setUserInfoToUpdate(inputValues)
     }
