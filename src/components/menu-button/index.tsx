@@ -15,6 +15,7 @@ export function MenuButton () {
 
 //  ### USER EMAIL INFORMATION ###
     const emailLocalStorage = localStorage.getItem("email")
+    const tokenLocalStorage = localStorage.getItem("token")
     const emailAtom = useRecoilValue(emailState)
 
     const [userEmail, setUserEmail] =  useState("")
@@ -90,7 +91,7 @@ const setEditPetInformation = useSetRecoilState(editPetInformation)
         <ul className={`${css["menu-options-container"] + " "  + toggleClassMenu}`} id="ul">
         <div className={css["user-information"]}>
             <Subtitle>{emailLocalStorage}</Subtitle>
-            {!emailLocalStorage? "" : <BlueLink className={css["user-information_close-link"]} userClick={handleLogout}>Cerar sesión</BlueLink>}
+            {!tokenLocalStorage? "" : <BlueLink className={css["user-information_close-link"]} userClick={handleLogout}>Cerar sesión</BlueLink>}
         </div>
         <li key={"my-data"} className={css["li"]} onClick={handleClick}>
             <Link to="/me" state={{from: location}} className={css.link}>
