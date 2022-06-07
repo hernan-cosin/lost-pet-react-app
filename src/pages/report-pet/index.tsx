@@ -22,11 +22,6 @@ export function ReportPet() {
     const flagCreatePetVal = useRecoilValue(flagCreatePet) // flag para saber si hay que crear una mascota o actualizarla
 
     useEffect(()=>{
-        console.log(flagCreatePetVal);
-        
-    }, [flagCreatePetVal])
-
-    useEffect(()=>{
         // state interno de este componente para guardar la url que viene de atoms
         setImgUrlValueIntState(imgUrlValue)
     }, [imgUrlValue])
