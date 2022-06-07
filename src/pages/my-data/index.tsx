@@ -23,6 +23,11 @@ export function MyData() {
     const updateUser = useUpdateUser(userInfoToUpdate) as any // custom hook
 
     useEffect(()=>{
+        console.log(userInfoToUpdate);
+        
+    }, [userInfoToUpdate])
+
+    useEffect(()=>{
         if (updateUser?.userUpdate || updateUser?.authUpdate || updateUser?.updatedUserAndAuth) {
             // si se actualizó alguno de los datos del usuario
             // setea updatedUser true 
@@ -57,6 +62,7 @@ export function MyData() {
     function handleSubmit(e) {
         e.preventDefault()
         const inputValues = getInputValues()
+        // console.log(inputValues);
         
         setUserInfoToUpdate(inputValues)
     }

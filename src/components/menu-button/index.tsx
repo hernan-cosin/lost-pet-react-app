@@ -3,7 +3,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom"
 import { Subtitle } from "ui/texts/subtitle"
 import { LinkText } from "ui/texts/Link"
 import { BlueLink } from "ui/texts/blue-link"
-import {editPetInformation, email, openMenu, passwordAndEmailState} from "atoms/atoms"
+import {editPetInformation, email, openMenu, passwordAndEmailState, emailState} from "atoms/atoms"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import css from "./menu-button.css"
 
@@ -14,6 +14,9 @@ export function MenuButton () {
     const navigate = useNavigate()
 
 //  ### USER EMAIL INFORMATION ###
+    const emailLocalStorage = localStorage.getItem("email")
+    const emailAtom = useRecoilValue(emailState)
+
     const [userEmail, setUserEmail] =  useState("")
     const userState = useRecoilValue(email)
     
@@ -57,6 +60,7 @@ export function MenuButton () {
     function handleLogout() {
         localStorage.removeItem("token")
         useSetResetEmail({email: "", password: ""})
+        localStorage.removeItem("email")
         handleClick()
         navigate("/")
     }
@@ -85,8 +89,8 @@ const setEditPetInformation = useSetRecoilState(editPetInformation)
         </div>
         <ul className={`${css["menu-options-container"] + " "  + toggleClassMenu}`} id="ul">
         <div className={css["user-information"]}>
-            <Subtitle>{userEmail}</Subtitle>
-            {!userEmail? "" : <BlueLink className={css["user-information_close-link"]} userClick={handleLogout}>Cerar sesión</BlueLink>}
+            <Subtitle>{emailLocalStorage}</Subtitle>
+            {!emailLocalStorage? "" : <BlueLink className={css["user-information_close-link"]} userClick={handleLogout}>Cerar sesión</BlueLink>}
         </div>
         <li key={"my-data"} className={css["li"]} onClick={handleClick}>
             <Link to="/me" state={{from: location}} className={css.link}>

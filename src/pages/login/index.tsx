@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from "react"
 import { useNavigate, useLocation } from "react-router-dom"
-import css from "./login.css"
 import {SearchInput} from "ui/text-field"
 import { Button } from "ui/buttons"
 import { useEmailCheck } from "hooks/emailCheck"
+import {emailState} from "atoms/atoms"
+import {useSetRecoilState} from "recoil"
+import css from "./login.css"
 
 export function Login() {
     const location = useLocation()
@@ -13,6 +15,12 @@ export function Login() {
     const [email, setEmail] = useState("")
     const response = useEmailCheck(email)
     
+    // setear mail en state general
+    const setEmailAtom = useSetRecoilState(emailState)
+    useEffect(()=>{
+        setEmailAtom(email)
+        localStorage.setItem("email", email)
+    }, [email])
 
     useEffect(()=>{        
         if (response === true) {
