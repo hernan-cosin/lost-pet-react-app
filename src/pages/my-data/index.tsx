@@ -28,7 +28,7 @@ export function MyData() {
     }, [userInfoToUpdate])
 
     useEffect(()=>{
-        if (updateUser?.userUpdate || updateUser?.authUpdate || updateUser?.updatedUserAndAuth) {
+        if (updateUser?.userUpdate || updateUser?.authUpdate || updateUser?.updatedUserAndAuth) {            
             // si se actualizó alguno de los datos del usuario
             // setea updatedUser true 
             setupdatedUser(true)
@@ -49,8 +49,8 @@ export function MyData() {
         }
         
         const objInputValue = Object.fromEntries(inputValues) 
-        objInputValue.email = userEmail
-        objInputValue.token = token
+        objInputValue.email = localStorage.getItem("email")
+        objInputValue.token = localStorage.getItem("token")
         
         if (objInputValue.password !== objInputValue.password1){ // varifica coincidencia de contraseñas
             return setErrorMessage(true)
