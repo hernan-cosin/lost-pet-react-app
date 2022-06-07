@@ -22,6 +22,11 @@ export function ReportPet() {
     const flagCreatePetVal = useRecoilValue(flagCreatePet) // flag para saber si hay que crear una mascota o actualizarla
 
     useEffect(()=>{
+        console.log(flagCreatePetVal);
+        
+    }, [flagCreatePetVal])
+
+    useEffect(()=>{
         // state interno de este componente para guardar la url que viene de atoms
         setImgUrlValueIntState(imgUrlValue)
     }, [imgUrlValue])
@@ -129,7 +134,7 @@ export function ReportPet() {
                     {flagCreatePetVal? <Button className={css["report-button"]} color="yellow">Reportar como perdido</Button> : <Button className={css["report-button"]} color="yellow">Reportar como perdido</Button>}
                 </form>
                     {formErrorMessage? <Message className={css["error-message"]}>Falta completar alguno de los datos obligatorios</Message> : ""}
-                    {petInformationStateValue.status == "found"? null : <Button onClick={handleFoundClick} className={css["cancel-button"]} color="grey">Reportar como encontrado</Button>}
+                    {petInformationStateValue.status == "found" || flagCreatePetVal? null : <Button onClick={handleFoundClick} className={css["cancel-button"]} color="grey">Reportar como encontrado</Button>}
                     {petId?<BlueLink userClick={handleUnpublishClick} className={css.unpublishButton}>Despublicar</BlueLink> : null}
             </div>
         </div>
