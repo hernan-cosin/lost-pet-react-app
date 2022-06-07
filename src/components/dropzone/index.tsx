@@ -19,7 +19,7 @@ export function MyDropzone(p: props) {
       if (p.imgUrl) {
         setImgUrl(p.imgUrl)
       }
-    }, )
+    }, [])
   
     useEffect(()=>{
       setImgUrl(imgBase64State)

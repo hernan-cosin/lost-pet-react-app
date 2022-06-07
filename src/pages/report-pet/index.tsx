@@ -5,8 +5,7 @@ import {Message} from "ui/texts/message"
 import { BlueLink } from "ui/texts/blue-link";
 import {ReportPetForm} from "components/report-pet-form"
 import { useRecoilValue } from "recoil";
-import { flagCreatePet, imgUrlState, editPetInformation} from "atoms/atoms"
-import {lostPetCoordsState} from "atoms/atoms"
+import { flagCreatePet,lostPetCoordsState, imgUrlState, editPetInformation} from "atoms/atoms"
 import {reportPet, updatePetInfo, reportAsFound, unpublishPet} from "lib/api"
 import {useNavigate} from "react-router-dom"
 import css from "./report-pet.css"
