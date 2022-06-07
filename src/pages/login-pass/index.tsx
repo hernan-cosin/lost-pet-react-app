@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {SearchInput} from "ui/text-field"
 import {BlueLink} from "ui/texts/blue-link"
+import { Body } from "ui/texts/body"
 import { Button } from "ui/buttons"
 import { ErrorMessage } from "ui/error-messages"
 import {useAuthToken} from "hooks/authToken"
@@ -53,7 +54,7 @@ export function LoginPass() {
         <form onSubmit={formSubmit}>
             <SearchInput className={css["password-form"]} type="password" label="Contraseña" name={"password"}></SearchInput>
             {errorMessage == true ? <ErrorMessage className={css["error-message"]}>Contraseña incorrecta</ErrorMessage> : ""}
-            {restoredPass? <body>Te hemos enviado una contraseña provisoria a tu email</body> : null}
+            {restoredPass? <Body className={css.restorePassText}>Te hemos enviado una contraseña provisoria a tu email</Body> : null}
             <Button className={css.button} color="yellow">Siguiente</Button>
             <BlueLink className={css.recoverPassword} userClick={handleForgotPassClick}>¿Olvidaste tu contraseña?</BlueLink>
         </form>

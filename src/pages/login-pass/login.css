@@ -30,3 +30,8 @@
     cursor: pointer;
 }
 
+.restorePassText {
+    max-width: 350px;
+    margin: 10px auto 0 auto;
+}
+

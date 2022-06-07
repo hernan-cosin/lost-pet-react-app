@@ -28,16 +28,24 @@ export function MyData() {
     }, [userInfoToUpdate])
 
     useEffect(()=>{
+        console.log("UPDATEUSER",updateUser);
+        
         if (updateUser?.userUpdate || updateUser?.authUpdate || updateUser?.updatedUserAndAuth) {            
             // si se actualizó alguno de los datos del usuario
             // setea updatedUser true 
+            console.log(updateUser.userUpdate)
+            console.log(updateUser.authUpdate)
+            console.log(updateUser.updatedUserAndAuth)
             setupdatedUser(true)
         }
     }, [updateUser])
 
     useEffect(()=>{
         const form  = document.querySelector("form")
-        form.reset() // se resetean las contraseñas del formulario
+        console.log("FORM RESET", updatedUser);
+        if (updatedUser) {
+            form.reset() // se resetean las contraseñas del formulario
+        }
     }, [updatedUser])
 
     function getInputValues() { // obtiene y retorna un objeto con la información fromateada para actualizar usuario
