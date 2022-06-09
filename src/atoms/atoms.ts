@@ -178,6 +178,11 @@ export const userInformationUpdateUserResponse = selector({
   },
 });
 
+export const stateToken = atom({
+  key: "stateToken",
+  default: "",
+});
+
 // GET REPORTED PET BY USER
 export const reportedPetState = atom({
   key: "reportedPetState",

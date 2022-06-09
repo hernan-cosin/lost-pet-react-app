@@ -4,16 +4,11 @@ import { Title } from "ui/texts/title";
 import {Button} from "ui/buttons"
 import {UserDataForm} from "components/user-data-form"
 import { useUserInfo } from "hooks/userInfo";
-import { useRecoilValue } from "recoil";
-import { emailState, tokenValueState } from "atoms/atoms";
 import {useUpdateUser} from "hooks/updateUser"
 import css from "./my-data.css"
 
 export function MyData() {
     const userInfo = useUserInfo()
-
-    const userEmail = useRecoilValue(emailState)    
-    const token = useRecoilValue(tokenValueState)
 
     const [updatedUser, setupdatedUser] = useState(false)
     const [errorMessage, setErrorMessage] = useState(false)
@@ -27,13 +22,15 @@ export function MyData() {
         if (updateUser?.userUpdate || updateUser?.authUpdate || updateUser?.updatedUserAndAuth) {            
             // si se actualizó alguno de los datos del usuario
             // setea updatedUser true 
+ 
             setupdatedUser(true)
+            window.location.reload() // recarga la pagina para mostrar la data actualizada en el formulario
         }
     }, [updateUser])
 
     useEffect(()=>{
         const form  = document.querySelector("form")
-        if (updatedUser) {
+        if (updatedUser) {            
             form.reset() // se resetean las contraseñas del formulario
         }
     }, [updatedUser])
