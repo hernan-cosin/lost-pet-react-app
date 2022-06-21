@@ -13,7 +13,7 @@ import css from "./login.css"
 
 export function LoginPass() {
     const navigate = useNavigate()
-    const location = useLocation()
+    const location = useLocation()    
 
     const [errorMessage, setErrorMessage] = useState(false)
     
@@ -21,6 +21,7 @@ export function LoginPass() {
     const [restoredPass, setRestoredPass] = useState(false)
     
     const email = useRecoilValue(emailState)
+    // const emailLocalStorage = localStorage.getItem("email")
     const tokenHookRes = useAuthToken(email as string, password)
 
     useEffect(()=>{
@@ -30,7 +31,8 @@ export function LoginPass() {
         if (tokenHookRes == true) {
             setErrorMessage(false)
             
-            navigate(location.state["from"], {replace:true}) // redirige hacía donde se dirigía antes de login
+            // redirige hacía donde se dirigía antes de login
+            navigate(location.state["from"], {replace:true}) 
         }
     }, [tokenHookRes])
 

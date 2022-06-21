@@ -1,27 +1,32 @@
 import React, { useEffect, useState } from "react";
-import css from "./new-user.css"
+import { useNavigate, useLocation } from "react-router-dom";
 import { Message } from "ui/texts/message";
 import { Title } from "ui/texts/title";
 import {Button} from "ui/buttons"
-import {UserDataForm} from "components/user-data-form"
-import { useRecoilValue } from "recoil";
 import { useCreateUser } from "hooks/createUser";
-import { emailState} from "atoms/atoms"
-import { useNavigate } from "react-router-dom";
+import {UserDataForm} from "components/user-data-form"
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
+import { emailState } from "atoms/atoms"
+import css from "./new-user.css"
 
 export function NewUser() {
     const navigate = useNavigate()
     const userEmail = useRecoilValue(emailState)
+    const location = useLocation()
+    // const userEmail = localStorage.getItem("email")
 
     const [errorMessage, setErrorMessage] = useState(false)
     
     const [newUserData, setNewUserData] = useState({email:"", name:"", lastName: "", password: "", password1:""}) 
    
     const createUser = useCreateUser(newUserData) as any //custom hook
+
+    const resetEmailAtom = useResetRecoilState(emailState)
     
     useEffect(()=>{
         if (createUser?.response) { // cuando se crea un usuario te redirige a la pagina de login para acceder
-            navigate("/login")
+            resetEmailAtom()            
+            navigate("/login", {state:{from: location.state["from"]}})
         }
         
     }, [createUser])

@@ -11,7 +11,7 @@ export function MenuButton () {
     const setOpenMenuAtom = useSetRecoilState(openMenu)
     const openMenuAtomValue = useRecoilValue(openMenu)
     const location = useLocation()
-    const navigate = useNavigate()
+    const navigate = useNavigate()    
 
 //  ### USER EMAIL INFORMATION ###
     const emailLocalStorage = localStorage.getItem("email")
@@ -99,12 +99,12 @@ const setEditPetInformation = useSetRecoilState(editPetInformation)
             </Link>
         </li>
         <li key={"my-reports"} className={css["li"]} onClick={handleClick}>
-            <Link to="/me/reports" className={css.link}>
+            <Link to="/me/reports" state={{from: location}} className={css.link}>
                 <LinkText>Mis mascotas reportadas</LinkText>
             </Link>
         </li>
         <li key={"report"} className={css["li"]} onClick={handleClick}>
-            <Link to="/me/report" className={css.link} onClick={handleCleanupPet}>
+            <Link to="/me/report" state={{from: location}} className={css.link} onClick={handleCleanupPet}>
                 <LinkText>Reportar mascota</LinkText>
             </Link>
         </li>

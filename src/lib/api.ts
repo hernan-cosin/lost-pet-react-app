@@ -1,5 +1,5 @@
-const API_BASE_URL = "https://m7-lost-pet-app.herokuapp.com";
-// const API_BASE_URL = "http://localhost:3009";
+// const API_BASE_URL = "https://m7-lost-pet-app.herokuapp.com";
+const API_BASE_URL = "http://localhost:3009";
 
 export async function getPetsNearBy(lat, lng) {
   const res = await fetch(
@@ -16,6 +16,8 @@ export async function getPetsNearBy(lat, lng) {
 }
 
 export async function emailCheck(email: string) {
+  // console.log("API EMAIL", email);
+
   if (email) {
     const checkResponse = await fetch(API_BASE_URL + "/email-check", {
       method: "post",
