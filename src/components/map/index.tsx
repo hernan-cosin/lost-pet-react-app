@@ -33,12 +33,13 @@ export function Mapbox(p:props) {
 
   useEffect(()=>{
     setLostPetCoordsState(petZoneCoords.features[0].geometry.coordinates)
+
   }, [petZoneCoords])
     
     function handleClick(e) {
       const lat = parseFloat(e.lngLat.lat)
       const lng= parseFloat(e.lngLat.lng)
-      
+
       setPetZoneCoords({
         type: 'FeatureCollection' as 'FeatureCollection',
     features: [

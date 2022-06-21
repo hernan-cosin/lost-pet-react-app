@@ -195,6 +195,12 @@ export const lostPetCoordsState = atom({
   default: {},
 });
 
+// COORDS UPDATE
+export const cordsUpdate = atom({
+  key: "cordsUpdate",
+  default: { loc_lat: undefined, loc_lng: undefined },
+});
+
 // DROPZONE IMG URL
 export const imgUrlState = atom({
   key: "imgUrlState",

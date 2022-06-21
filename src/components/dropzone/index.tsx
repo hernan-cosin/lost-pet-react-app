@@ -2,7 +2,7 @@ import React, {useCallback, useState, useEffect} from 'react'
 import {useDropzone} from 'react-dropzone'
 import { Body } from 'ui/texts/body';
 import {imgUrlState} from "atoms/atoms"
-import { useSetRecoilState, useRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 import css from "./index.css"
 
 type props = {
@@ -11,9 +11,11 @@ type props = {
 
 export function MyDropzone(p: props) {
   const [files, setFiles] = useState([]);
-  const setImgUrl = useSetRecoilState(imgUrlState)
+  const [imgUrl, setImgUrl] = useRecoilState(imgUrlState)
   const [imgBase64State, setImgBase64State] = useState("")
   const [propImgUrl, setpropImgUrl] = useState("")
+  // const propImgUrlAtomValue = useRecoilValue(propImgUrlAtom)
+  const setImgUrlState = useSetRecoilState(imgUrlState)
 
     useEffect(()=>{
       if (p.imgUrl) {
@@ -26,7 +28,10 @@ export function MyDropzone(p: props) {
     }, [imgBase64State])
 
     useEffect(()=>{
-      setpropImgUrl(p.imgUrl)      
+      setpropImgUrl(p.imgUrl)
+      setImgUrlState(p.imgUrl)
+      // console.log(p.imgUrl);
+       
     }, [p.imgUrl])
 
     async function getBase64(file) {

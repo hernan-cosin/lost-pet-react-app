@@ -17,9 +17,7 @@ export function Login() {
     // setear mail en state general
     const [emailAtom, setEmailAtom] = useRecoilState(emailState)
 
-    useEffect(()=>{
-        console.log("LOGIN response", response);
-        
+    useEffect(()=>{        
         if (response.userFound === true) {
             setEmailAtom(email)
             navigate("/login-pass", {state:{from: location.state["from"]}})
@@ -29,6 +27,12 @@ export function Login() {
             navigate("/me/new", {state:{from: location.state["from"]}})
         }
     }, [response])
+
+    useEffect(()=>{
+        if (email) {
+            localStorage.setItem("email", email)
+        }
+    }, [email])
 
     async function handleFormSubmit(e) {
         e.preventDefault()

@@ -15,6 +15,7 @@ export function ReportPetForm() {
     const setFlagCreatePet = useSetRecoilState(flagCreatePet)
 
     useEffect(()=>{ 
+        
         if (petInformation[0].name.length > 0) { // si la mascota tiene nombre setea el flag en false
             setFlagCreatePet(false) // no hay que crearla, hay que actualizarla
         } else {
