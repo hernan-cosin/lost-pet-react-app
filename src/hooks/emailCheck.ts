@@ -8,7 +8,7 @@ export function useEmailCheck(email: string) {
 
   useEffect(() => {
     setEmailAtom(email);
-    console.log("CUSTOM HOOK EMAIL", email);
+    // console.log("CUSTOM HOOK EMAIL", email);
   }, [email]);
 
   return response;

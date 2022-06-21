@@ -34,10 +34,10 @@ export function ReportPet() {
         setPrevInformation(petInformationStateValue)
     }, [])
 
-    useEffect(()=>{
-        console.log(prevInformation);
+    // useEffect(()=>{
+    //     console.log(prevInformation);
         
-    }, [prevInformation])
+    // }, [prevInformation])
     
     async function handleSubmit(e) {
         e.preventDefault()
