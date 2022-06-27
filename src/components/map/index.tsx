@@ -39,6 +39,11 @@ export function Mapbox(p:props) {
     function handleClick(e) {
       const lat = parseFloat(e.lngLat.lat)
       const lng= parseFloat(e.lngLat.lng)
+      
+      console.log(
+        e.target
+      );
+      
 
       setPetZoneCoords({
         type: 'FeatureCollection' as 'FeatureCollection',

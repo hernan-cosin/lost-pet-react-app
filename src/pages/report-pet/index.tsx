@@ -146,7 +146,7 @@ export function ReportPet() {
             <div className={css["form-container"]}>
                 <form onSubmit={handleSubmit} className={css["form"]}>
                     <ReportPetForm></ReportPetForm>
-                    {flagCreatePetVal? <Button className={css["report-button"]} color="yellow">Reportar como perdido</Button> : <Button className={css["report-button"]} color="yellow">Reportar como perdido</Button>}
+                    {flagCreatePetVal? <Button className={css["report-button"]} color="yellow">Reportar como perdido</Button> : <Button className={css["report-button"]} color="yellow">Guardar</Button>}
                 </form>
                     {noDataToUpdateMessage? <Message className={css["error-message"]}>No hay datos nuevos para actualizar</Message> : ""}
                     {formErrorMessage? <Message className={css["error-message"]}>Falta completar alguno de los datos obligatorios</Message> : ""}
